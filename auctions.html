@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BidHub | Premium Online Auctions</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* ===== Global Styles ===== */
+    :root {
+      --primary: #3a0ca3;  /* Deep purple */
+      --secondary: #4cc9f0; /* Bright teal */
+      --accent: #f72585;   /* Vibrant pink */
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+      --success: #4ad66d;
+      --warning: #ffbe0b;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: 60px 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      text-align: center;
+      color: var(--primary);
+      position: relative;
+    }
+
+    h2:after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--secondary));
+      margin: 15px auto 0;
+      border-radius: 2px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.9rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(58, 12, 163, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #dfdaec;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(58, 12, 163, 0.4);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+    }
+
+    .btn-accent:hover {
+      background: #d91a6d;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(247, 37, 133, 0.4);
+    }
+
+    /* ===== Header Styles ===== */
+    header {
+      background-color: white;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 15px 0;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      height: 45px;
+    }
+
+    .logo span {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color:#000000;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    nav a {
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 5px 0;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--primary);
+    }
+
+    nav a:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--secondary));
+      transition: var(--transition);
+      border-radius: 2px;
+    }
+
+    nav a:hover:after, nav a.active:after {
+      width: 100%;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      position: relative;
+      height: 600px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--primary), #7209b7);
+    }
+
+    .hero-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      width: 100%;
+      padding: 0 20px;
+      z-index: 2;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-content p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0.9;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .hero-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+      z-index: 1;
+    }
+
+    /* ===== Auction/Product Cards ===== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-img {
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .card:hover .card-img img {
+      transform: scale(1.1);
+    }
+
+    .auction-tag {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--accent);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      z-index: 2;
+    }
+
+    .time-left {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      z-index: 2;
+    }
+
+    .card-content {
+      padding: 25px;
+    }
+
+    .card-content h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .card-content p {
+      color: var(--gray);
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+    }
+
+    .price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 15px;
+    }
+
+    .bid-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+    }
+
+    .bids-count {
+      color: var(--gray);
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .watch-btn {
+      background: none;
+      border: none;
+      color: var(--gray);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1.2rem;
+    }
+
+    .watch-btn:hover {
+      color: var(--accent);
+      transform: scale(1.1);
+    }
+
+    /* ===== Categories Section ===== */
+    .categories {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 25px;
+    }
+
+    .category-card {
+      background: white;
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .category-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.8rem;
+    }
+
+    .category-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    /* ===== Testimonials ===== */
+    .testimonials {
+      background: var(--primary);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonials h2 {
+      color: white;
+    }
+
+    .testimonials h2:after {
+      background: var(--secondary);
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 30px;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .testimonial-card:before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 5rem;
+      color: rgba(255, 255, 255, 0.1);
+      font-family: serif;
+      line-height: 1;
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .author-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .author-info h4 {
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+
+    .author-info p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 70px 0 30px;
+      position: relative;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h3 {
+      font-size: 1.3rem;
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .footer-column h3:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--secondary));
+      border-radius: 2px;
+    }
+
+    .footer-column p {
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column li {
+      margin-bottom: 12px;
+    }
+
+    .footer-column a {
+      color: #ddd;
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+
+    .footer-column a:hover {
+      color: var(--secondary);
+      opacity: 1;
+      padding-left: 5px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 12px 15px;
+      border: none;
+      border-radius: 30px;
+      font-size: 0.9rem;
+    }
+
+    .newsletter-form button {
+      padding: 12px 20px;
+      white-space: nowrap;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* ===== Responsive Design ===== */
+    @media (max-width: 992px) {
+      .header-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      nav ul {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero-content h1 {
+        font-size: 2.8rem;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        height: 500px;
+      }
+
+      .hero-content h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero-content p {
+        font-size: 1.1rem;
+      }
+
+      .card-grid, .category-grid, .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all auction timers
+    const timeLeftElements = document.querySelectorAll('.time-left');
+    
+    timeLeftElements.forEach(element => {
+        // Get the initial time left text (e.g., "2d 4h 32m left")
+        const timeText = element.textContent.trim();
+        
+        // Parse the time string into days, hours, and minutes
+        const daysMatch = timeText.match(/(\d+)d/);
+        const hoursMatch = timeText.match(/(\d+)h/);
+        const minutesMatch = timeText.match(/(\d+)m/);
+        
+        const days = daysMatch ? parseInt(daysMatch[1]) : 0;
+        const hours = hoursMatch ? parseInt(hoursMatch[1]) : 0;
+        const minutes = minutesMatch ? parseInt(minutesMatch[1]) : 0;
+        
+        // Calculate total seconds remaining
+        let totalSeconds = (days * 24 * 60 * 60) + (hours * 60 * 60) + (minutes * 60);
+        
+        // Update the timer every second
+        const timerInterval = setInterval(function() {
+            totalSeconds--;
+            
+            if (totalSeconds <= 0) {
+                clearInterval(timerInterval);
+                element.textContent = "Auction ended";
+                element.style.color = "#f72585"; // Make it red
+                return;
+            }
+            
+            // Calculate days, hours, minutes, seconds
+            const daysLeft = Math.floor(totalSeconds / (24 * 60 * 60));
+            const hoursLeft = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60));
+            const minutesLeft = Math.floor((totalSeconds % (60 * 60)) / 60);
+            const secondsLeft = totalSeconds % 60;
+            
+            // Format the time string
+            let timeString = '';
+            if (daysLeft > 0) timeString += `${daysLeft}d `;
+            if (hoursLeft > 0 || daysLeft > 0) timeString += `${hoursLeft}h `;
+            timeString += `${minutesLeft}m ${secondsLeft}s left`;
+            
+            element.textContent = timeString;
+            
+            // Change color when less than 1 hour remains
+            if (totalSeconds < 3600) {
+                element.style.color = "#f72585"; // Red color for urgency
+                element.style.fontWeight = "bold";
+            }
+        }, 1000);
+    });
+    
+    // Add click handlers for bid buttons
+    const bidButtons = document.querySelectorAll('.card-footer .btn-primary');
+    bidButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const card = this.closest('.card');
+            const priceElement = card.querySelector('.price');
+            const bidsCountElement = card.querySelector('.bids-count');
+            const currentBidderElement = card.querySelector('.current-bidder');
+            
+            // Get current price (remove $ and commas)
+            let currentPrice = parseFloat(priceElement.textContent.replace(/[^0-9.]/g, ''));
+            
+            // Calculate next bid (5% increase in this example)
+            const nextBid = currentPrice * 1.05;
+            
+            // Update price display
+            priceElement.textContent = '$' + nextBid.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            
+            // Update bid count
+            const currentBids = parseInt(bidsCountElement.textContent);
+            bidsCountElement.textContent = (currentBids + 1) + ' bids';
+            
+            // Update current bidder (you would replace with actual user in a real app)
+            currentBidderElement.textContent = 'Highest: you';
+            
+            // Visual feedback
+            this.textContent = 'Bid Placed!';
+            setTimeout(() => {
+                this.textContent = 'Place Bid';
+            }, 2000);
+        });
+    });
+    
+    // Add click handlers for watchlist buttons
+    const watchButtons = document.querySelectorAll('.watch-btn');
+    watchButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const icon = this.querySelector('i');
+            
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                this.style.color = "#f72585"; // Red color when watched
+                this.title = "Remove from watchlist";
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                this.style.color = "#6c757d"; // Gray color when not watched
+                this.title = "Add to watchlist";
+            }
+        });
+    });
+});
+</script>
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <img src="assets/logo.png" alt="BidHub Logo">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="auctions.html">Auctions</a></li>
+          <li><a href="checkout.html">Checkout</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <a href="sign.html" class="btn btn-accent">Register</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-content">
+      <h1>Discover & Bid On Rare Treasures</h1>
+      <p>Join the world's most exciting auction community where collectors and enthusiasts find unique items and amazing deals</p>
+      <div class="hero-buttons">
+        <a href="auctions.html" class="btn btn-accent">Explore Auctions</a>
+        
+        </div>
+      </div>
+    </section>
+  
+    <section class="featured-auctions">
+      <div class="container">
+        <h2>Featured Auctions</h2>
+        <div class="card-grid">
+          <!-- Auction Card 1 -->
+          <div class="card">
+            <div class="card-img">
+              <img src="assets/auction1.jpg" alt="Vintage Rolex Watch">
+              <span class="auction-tag">Hot Bid</span>
+              <span class="time-left">2d 4h 32m left</span>
+            </div>
+            <div class="card-content">
+              <h3>Vintage Rolex Submariner</h3>
+              <p>1960s classic diver's watch, excellent condition with original papers</p>
+              <div class="price">$12,450</div>
+              <div class="bid-info">
+                <span class="bids-count">24 bids</span>
+                <span class="current-bidder">Highest: collector23</span>
+              </div>
+              <div class="card-footer">
+                <a href="auction-detail.html" class="btn btn-primary">Place Bid</a>
+                <button class="watch-btn" title="Add to watchlist"><i class="far fa-heart"></i></button>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Auction Card 2 -->
+          <div class="card">
+            <div class="card-img">
+              <img src="assets/auction2.jpg" alt="Rare Baseball Card">
+              <span class="auction-tag">New</span>
+              <span class="time-left">5d 12h 15m left</span>
+            </div>
+            <div class="card-content">
+              <h3>1909 T206 Honus Wagner</h3>
+              <p>Extremely rare baseball card, PSA graded 3, one of only 60 known to exist</p>
+              <div class="price">$325,000</div>
+              <div class="bid-info">
+                <span class="bids-count">8 bids</span>
+                <span class="current-bidder">Highest: sportsfan99</span>
+              </div>
+              <div class="card-footer">
+                <a href="auction-detail.html" class="btn btn-primary">Place Bid</a>
+                <button class="watch-btn" title="Add to watchlist"><i class="far fa-heart"></i></button>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Auction Card 3 -->
+          <div class="card">
+            <div class="card-img">
+              <img src="assets/auction3.jpg" alt="Antique Persian Rug">
+              <span class="auction-tag">Ending Soon</span>
+              <span class="time-left">1d 6h 48m left</span>
+            </div>
+            <div class="card-content">
+              <h3>19th Century Persian Rug</h3>
+              <p>Handwoven Tabriz silk rug, 8x10 ft, excellent condition with vibrant colors</p>
+              <div class="price">$8,750</div>
+              <div class="bid-info">
+                <span class="bids-count">17 bids</span>
+                <span class="current-bidder">Highest: decor_lover</span>
+              </div>
+              <div class="card-footer">
+                <a href="auction-detail.html" class="btn btn-primary">Place Bid</a>
+                <button class="watch-btn" title="Add to watchlist"><i class="far fa-heart"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+          <a href="auctions.html" class="btn btn-accent">View All Auctions</a>
+        </div>
+      </div>
+    </section>
+  
+    <section class="categories" aria-labelledby="categories-heading">
+      <div class="container">
+        <h2 id="categories-heading">Popular Categories</h2>
+        <div class="category-grid" role="list">
+          <!-- Category 1 -->
+          <div class="category-card" role="listitem">
+            <div class="category-icon" aria-hidden="true">
+              <i class="fas fa-gem"></i>
+            </div>
+            <h3>Jewelry & Watches</h3>
+            <p><span class="sr-only">Number of active auctions: </span>1,245 active auctions</p>
+            <a href="categories/jewelry-watches.html" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.8rem;">
+              Browse <span class="sr-only">Jewelry & Watches category</span>
+            </a>
+          </div>
+    
+          <!-- Category 2 -->
+          <div class="category-card" role="listitem">
+            <div class="category-icon" aria-hidden="true">
+              <i class="fas fa-paint-brush"></i>
+            </div>
+            <h3>Art & Collectibles</h3>
+            <p><span class="sr-only">Number of active auctions: </span>892 active auctions</p>
+            <a href="#" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.8rem;">
+              Browse <span class="sr-only">Art & Collectibles category</span>
+            </a>
+          </div>
+    
+          <!-- Category 3 -->
+          <div class="category-card" role="listitem">
+            <div class="category-icon" aria-hidden="true">
+              <i class="fas fa-car"></i>
+            </div>
+            <h3>Automobiles</h3>
+            <p><span class="sr-only">Number of active auctions: </span>327 active auctions</p>
+            <a href="#" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.8rem;">
+              Browse <span class="sr-only">Automobiles category</span>
+            </a>
+          </div>
+    
+          <!-- Category 4 -->
+          <div class="category-card" role="listitem">
+            <div class="category-icon" aria-hidden="true">
+              <i class="fas fa-tshirt"></i>
+            </div>
+            <h3>Fashion & Luxury</h3>
+            <p><span class="sr-only">Number of active auctions: </span>1,532 active auctions</p>
+            <a href="#" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.8rem;">
+              Browse <span class="sr-only">Fashion & Luxury category</span>
+            </a>
+          </div>
+    
+          <!-- Category 5 -->
+          <div class="category-card" role="listitem">
+            <div class="category-icon" aria-hidden="true">
+              <i class="fas fa-home"></i>
+            </div>
+            <h3>Home & Antiques</h3>
+            <p><span class="sr-only">Number of active auctions: </span>768 active auctions</p>
+            <a href="#" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.8rem;">
+              Browse <span class="sr-only">Home & Antiques category</span>
+            </a>
+          </div>
+    
+          <!-- Category 6 -->
+          <div class="category-card" role="listitem">
+            <div class="category-icon" aria-hidden="true">
+              <i class="fas fa-music"></i>
+            </div>
+            <h3>Music & Instruments</h3>
+            <p><span class="sr-only">Number of active auctions: </span>421 active auctions</p>
+            <a href="#" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.8rem;">
+              Browse <span class="sr-only">Music & Instruments category</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials">
+      <div class="container">
+        <h2>What Our Bidders Say</h2>
+        <div class="testimonial-grid">
+          <!-- Testimonial 1 -->
+          <div class="testimonial-card">
+            <div class="testimonial-text">
+              "I've been collecting rare watches for 20 years, and BidHub has become my go-to platform. The authentication process gives me confidence in my purchases."
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar">
+                <img src="assets/avatar1.jpg" alt="James Wilson">
+              </div>
+              <div class="author-info">
+                <h4>James Wilson</h4>
+                <p>Watch Collector</p>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Testimonial 2 -->
+          <div class="testimonial-card">
+            <div class="testimonial-text">
+              "As a small antique dealer, I was skeptical about online auctions. But BidHub's seller tools helped me reach buyers worldwide and get fair prices for my items."
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar">
+                <img src="assets/avatar2.jpg" alt="Sarah Johnson">
+              </div>
+              <div class="author-info">
+                <h4>Sarah Johnson</h4>
+                <p>Antique Dealer</p>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Testimonial 3 -->
+          <div class="testimonial-card">
+            <div class="testimonial-text">
+              "The thrill of live bidding is addictive! I've found incredible deals on vintage guitars that would cost twice as much in retail stores. Highly recommended!"
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar">
+                <img src="assets/avatar3.jpg" alt="Michael Chen">
+              </div>
+              <div class="author-info">
+                <h4>Michael Chen</h4>
+                <p>Musician</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <section class="how-it-works">
+      <div class="container">
+        <h2>How BidHub Works</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-top: 50px;">
+          <!-- Step 1 -->
+          <div style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; margin: 0 auto 20px;">1</div>
+            <h3 style="margin-bottom: 15px; color: var(--primary);">Register Free</h3>
+            <p style="color: var(--gray);">Create your free account in minutes. No obligations, no hidden fees.</p>
+          </div>
+  
+          <!-- Step 2 -->
+          <div style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; margin: 0 auto 20px;">2</div>
+            <h3 style="margin-bottom: 15px; color: var(--primary);">Browse or Sell</h3>
+            <p style="color: var(--gray);">Find amazing items or list your own with our easy seller tools.</p>
+          </div>
+  
+          <!-- Step 3 -->
+          <div style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; margin: 0 auto 20px;">3</div>
+            <h3 style="margin-bottom: 15px; color: var(--primary);">Bid or Buy</h3>
+            <p style="color: var(--gray);">Participate in live auctions or use Buy It Now for immediate purchase.</p>
+          </div>
+  
+          <!-- Step 4 -->
+          <div style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; margin: 0 auto 20px;">4</div>
+            <h3 style="margin-bottom: 15px; color: var(--primary);">Secure Checkout</h3>
+            <p style="color: var(--gray);">Complete your purchase with our protected payment system.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <!-- Column 1 -->
+          <div class="footer-column">
+            <h3>About BidHub</h3>
+            <p>BidHub is the premier online auction platform connecting buyers and sellers of rare, unique, and valuable items worldwide.</p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+  
+          <!-- Column 2 -->
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="auctions.html">Live Auctions</a></li>
+              <li><a href="categories.html">Categories</a></li>
+              <li><a href="sell.html">Sell With Us</a></li>
+              <li><a href="about.html">About Us</a></li>
+            </ul>
+          </div>
+  
+          <!-- Column 3 -->
+          <div class="footer-column">
+            <h3>Help & Support</h3>
+            <ul>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="shipping.html">Shipping Info</a></li>
+              <li><a href="returns.html">Returns Policy</a></li>
+              <li><a href="authentication.html">Authentication</a></li>
+              <li><a href="contact.html">Contact Support</a></li>
+            </ul>
+          </div>
+  
+          <!-- Column 4 -->
+          <div class="footer-column">
+            <h3>Newsletter</h3>
+            <p>Subscribe to get updates on new auctions, special offers, and collecting tips.</p>
+            <form class="newsletter-form">
+              <input type="email" placeholder="Your email address">
+              <button type="submit" class="btn btn-accent">Subscribe</button>
+            </form>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2023 BidHub. All rights reserved. | <a href="privacy.html" style="color: var(--secondary);">Privacy Policy</a> | <a href="terms.html" style="color: var(--secondary);">Terms of Service</a></p>
+        </div>
+      </div>
+    </footer>
+  </body>
+  </html>

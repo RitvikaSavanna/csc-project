@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BidHub | Premium Online Auctions</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #3a0ca3;  /* Deep purple */
+      --secondary: #4cc9f0; /* Bright teal */
+      --accent: #f72585;   /* Vibrant pink */
+      --light: #f8f9fa;
+      --dark: #212529;
+      --success: #4ad66d;
+      --warning: #ffbe0b;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--gray-50);
+      color: var(--gray-900);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 2.25rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      color: var(--gray-900);
+      position: relative;
+    }
+
+    h2:after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      margin: 1.25rem auto 0;
+      border-radius: 2px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.875rem 1.75rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      text-decoration: none;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-accent:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--gray-300);
+      color: var(--gray-700);
+    }
+
+    .btn-outline:hover {
+      background: var(--gray-100);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Header */
+    header {
+      background-color: white;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 2.75rem;
+      height: 2.75rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.375rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .logo-text {
+      font-size: 1.625rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.75rem;
+    }
+
+    nav a {
+      color: var(--gray-600);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--primary);
+    }
+
+    nav a:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: var(--transition);
+    }
+
+    nav a:hover:after, nav a.active:after {
+      width: 100%;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 600px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      /*color: white;*/
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1533282960533-51328aa49826?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+      opacity: 0.1;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 700px;
+      text-align: center;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid var(--gray-200);
+    }
+
+    .card:hover {
+      transform: translateY(-0.5rem);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--gray-300);
+    }
+
+    .card-img {
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .card:hover .card-img img {
+      transform: scale(1.05);
+    }
+
+    .badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--accent);
+      color: white;
+      padding: 0.375rem 0.875rem;
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-xs);
+      z-index: 1;
+    }
+
+    .time-left {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      background: rgba(0, 0, 0, 0.75);
+      color: white;
+      padding: 0.375rem 0.875rem;
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      z-index: 1;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--gray-900);
+    }
+
+    .card-content p {
+      color: var(--gray-600);
+      font-size: 0.9375rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+
+    .price {
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+
+    .bid-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      font-size: 0.875rem;
+    }
+
+    .bids-count {
+      color: var(--gray-600);
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .watch-btn {
+      background: none;
+      border: none;
+      color: var(--gray-400);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1.375rem;
+    }
+
+    .watch-btn:hover, .watch-btn.active {
+      color: var(--accent);
+      transform: scale(1.1);
+    }
+
+    /* Categories */
+    .categories {
+      background: var(--gray-100);
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .category-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem 1.25rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      border: 1px solid var(--gray-200);
+    }
+
+    .category-card:hover {
+      transform: translateY(-0.5rem);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--gray-300);
+    }
+
+    .category-icon {
+      width: 3.5rem;
+      height: 3.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .category-card h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--gray-900);
+    }
+
+    .category-card p {
+      color: var(--gray-600);
+      font-size: 0.875rem;
+    }
+
+    /* Featured Section */
+    .featured-section {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(245, 158, 11, 0.05));
+    }
+
+    /* Testimonials */
+    .testimonials {
+      background: var(--gray-100);
+    }
+
+    /* Newsletter */
+    .newsletter {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      text-align: center;
+      padding: 4rem 0;
+    }
+
+    .newsletter h2 {
+      color: white;
+    }
+
+    .newsletter h2:after {
+      background: white;
+    }
+
+    .newsletter-form {
+      display: flex;
+      max-width: 500px;
+      margin: 0 auto;
+      gap: 1rem;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 0.875rem 1.25rem;
+      border-radius: 0.5rem;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .newsletter-form input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--gray-900);
+      color: white;
+      padding: 5rem 0 2rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-column h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 1rem;
+      color: white;
+    }
+
+    .footer-column h3:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 3rem;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column li {
+      margin-bottom: 0.875rem;
+    }
+
+    .footer-column a {
+      color: var(--gray-400);
+      text-decoration: none;
+      transition: var(--transition);
+      font-size: 0.9375rem;
+    }
+
+    .footer-column a:hover {
+      color: white;
+      padding-left: 0.25rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-links a {
+      width: 2.75rem;
+      height: 2.75rem;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      font-size: 1.25rem;
+    }
+
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.875rem;
+      color: var(--gray-400);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .header-container {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem 0;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 4rem 0;
+      }
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      .hero {
+        height: 500px;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.125rem;
+      }
+
+      .card-grid, .category-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      section {
+        padding: 3rem 0;
+      }
+
+      h2 {
+        font-size: 1.75rem;
+      }
+
+      .card-grid, .category-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-buttons {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-gavel"></i>
+        </div>
+        <span class="logo-text">BidHub</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="auctions.html">Auctions</a></li>
+          <li><a href="checkout.html">Checkout</a></li>
+          <li><a href="cart.html">Cart</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <a href="sign.html" class="btn btn-primary">Register</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Discover Rare Finds & Amazing Deals</h1>
+      <p>Join thousands of bidders in our exclusive online auctions for unique items and collectibles</p>
+      <a href="auctions.html" class="btn btn-accent">Start Bidding Now</a>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2>Featured Auctions</h2>
+    <div class="card-grid">
+      <!-- Auction 1 -->
+      <div class="card">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Vintage Watch">
+          <div class="badge">Hot Bid</div>
+          <div class="time-left">4h 22m left</div>
+        </div>
+        <div class="card-content">
+          <h3>Rolex Submariner 1965</h3>
+          <p>Vintage luxury watch in excellent condition with original box and papers</p>
+          <div class="bid-info">
+            <div class="current-bid">
+              <span class="price">$8,750</span>
+            </div>
+            <div class="bids-count">
+              <i class="fas fa-gavel"></i> 14 bids
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="auction-detail.html" class="btn btn-primary">Place Bid</a>
+            <button class="watch-btn"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Auction 2 -->
+      <div class="card">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Abstract Painting">
+          <div class="time-left">1d 3h left</div>
+        </div>
+        <div class="card-content">
+          <h3>Abstract Oil Painting</h3>
+          <p>Contemporary artwork by emerging artist, signed and dated</p>
+          <div class="bid-info">
+            <div class="current-bid">
+              <span class="price">$1,250</span>
+            </div>
+            <div class="bids-count">
+              <i class="fas fa-gavel"></i> 7 bids
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="auction-detail.html" class="btn btn-primary">Place Bid</a>
+            <button class="watch-btn"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Auction 3 -->
+      <div class="card">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Vintage Guitar">
+          <div class="badge">No Reserve</div>
+          <div class="time-left">6h 45m left</div>
+        </div>
+        <div class="card-content">
+          <h3>1962 Fender Stratocaster</h3>
+          <p>All-original sunburst finish with case, excellent playing condition</p>
+          <div class="bid-info">
+            <div class="current-bid">
+              <span class="price">$12,500</span>
+            </div>
+            <div class="bids-count">
+              <i class="fas fa-gavel"></i> 22 bids
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="auction-detail.html" class="btn btn-primary">Place Bid</a>
+            <button class="watch-btn"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="categories">
+    <div class="container">
+      <h2>Browse Categories</h2>
+      <div class="category-grid">
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-gem"></i>
+          </div>
+          <h3>Jewelry</h3>
+          <p>Luxury watches, diamonds & more</p>
+        </div>
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-palette"></i>
+          </div>
+          <h3>Art</h3>
+          <p>Paintings, sculptures & collectibles</p>
+        </div>
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-laptop"></i>
+          </div>
+          <h3>Electronics</h3>
+          <p>Vintage & modern tech</p>
+        </div>
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-car"></i>
+          </div>
+          <h3>Automobiles</h3>
+          <p>Classic & collector cars</p>
+        </div>
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <h3>Home</h3>
+          <p>Antique furniture & decor</p>
+        </div>
+        <div class="category-card">
+          <div class="category-icon">
+            <i class="fas fa-tshirt"></i>
+          </div>
+          <h3>Fashion</h3>
+          <p>Designer clothing & accessories</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2>Buy Now Items</h2>
+    <div class="card-grid">
+      <!-- Product 1 -->
+      <div class="card">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Running Shoes">
+        </div>
+        <div class="card-content">
+          <h3>Premium Running Shoes</h3>
+          <p>High-performance athletic footwear with advanced cushioning</p>
+          <div class="price">$129.99</div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Add to Cart</a>
+            <button class="watch-btn"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="card">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1525904097878-94fb15835963?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Smartphone">
+        </div>
+        <div class="card-content">
+          <h3>Latest Smartphone</h3>
+          <p>128GB storage, 8GB RAM, 48MP camera</p>
+          <div class="price">$899.99</div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Add to Cart</a>
+            <button class="watch-btn"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="card">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Headphones">
+        </div>
+        <div class="card-content">
+          <h3>Noise Cancelling Headphones</h3>
+          <p>Premium sound quality with 30-hour battery life</p>
+          <div class="price">$249.99</div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Add to Cart</a>
+            <button class="watch-btn"><i class="far fa-heart"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured-section">
+    <div class="container">
+      <h2>Why Choose BidHub?</h2>
+      <div class="card-grid">
+        <!-- Feature 1 -->
+        <div class="card">
+          <div class="card-content">
+            <div class="category-icon" style="margin-bottom: 1.5rem;">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>Secure Transactions</h3>
+            <p>All transactions are encrypted and protected with our advanced security measures.</p>
+          </div>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="card">
+          <div class="card-content">
+            <div class="category-icon" style="margin-bottom: 1.5rem;">
+              <i class="fas fa-certificate"></i>
+            </div>
+            <h3>Authenticity Guaranteed</h3>
+            <p>Every item is verified by our team of experts before listing.</p>
+          </div>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="card">
+          <div class="card-content">
+            <div class="category-icon" style="margin-bottom: 1.5rem;">
+              <i class="fas fa-truck"></i>
+            </div>
+            <h3>Global Shipping</h3>
+            <p>We ship worldwide with insured and tracked delivery options.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <div class="container">
+      <h2>Stay Updated</h2>
+      <p style="max-width: 600px; margin: 0 auto 2rem; opacity: 0.9;">Subscribe to our newsletter for exclusive auctions, special deals, and collecting tips.</p>
+      <form class="newsletter-form">
+        <input type="email" placeholder="Your email address" required>
+        <button type="submit" class="btn btn-accent">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>BidHub</h3>
+          <p>Premier online auction marketplace for rare and unique items from around the world.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="auctions.html">Live Auctions</a></li>
+            <li><a href="categories.html">Categories</a></li>
+            <li><a href="sell.html">Sell With Us</a></li>
+            <li><a href="about.html">About Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Help</h3>
+          <ul>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="shipping.html">Shipping</a></li>
+            <li><a href="returns.html">Returns</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="terms.html">Terms & Conditions</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Contact</h3>
+          <ul>
+            <li><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i> 123 Auction St, New York</li>
+            <li><i class="fas fa-phone" style="margin-right: 0.5rem;"></i> +1 (555) 123-4567</li>
+            <li><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i> info@bidhub.com</li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 BidHub. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const cartItems = document.querySelectorAll(".cart-item");
+    const subtotalElement = document.querySelector(".summary-row span:nth-child(2)");
+    let subtotal = 21200; // Initial subtotal value
+
+    function updateSubtotal() {
+        let newSubtotal = 0;
+        document.querySelectorAll(".cart-item").forEach(item => {
+            const price = parseFloat(item.querySelector(".cart-item-price").textContent.replace("$", "").replace(",", ""));
+            const quantity = parseInt(item.querySelector(".quantity-control span").textContent);
+            newSubtotal += price * quantity;
+        });
+        subtotal = newSubtotal;
+        subtotalElement.textContent = `$${subtotal.toLocaleString()}`;
+        updateTotal();
+    }
+
+    function updateTotal() {
+        const shipping = 250;
+        const tax = subtotal * 0.08; // 8% tax
+        const insurance = 150;
+        const total = subtotal + shipping + tax + insurance;
+        document.querySelector(".summary-row.total span:nth-child(2)").textContent = `$${total.toLocaleString()}`;
+    }
+
+    cartItems.forEach(item => {
+        const minusBtn = item.querySelector(".quantity-control button:first-child");
+        const plusBtn = item.querySelector(".quantity-control button:last-child");
+        const quantitySpan = item.querySelector(".quantity-control span");
+        const removeBtn = item.querySelector(".remove-item");
+
+        plusBtn.addEventListener("click", function () {
+            let quantity = parseInt(quantitySpan.textContent);
+            quantity++;
+            quantitySpan.textContent = quantity;
+            updateSubtotal();
+        });
+
+        minusBtn.addEventListener("click", function () {
+            let quantity = parseInt(quantitySpan.textContent);
+            if (quantity > 1) {
+                quantity--;
+                quantitySpan.textContent = quantity;
+                updateSubtotal();
+            }
+        });
+
+        removeBtn.addEventListener("click", function () {
+            item.remove();
+            updateSubtotal();
+        });
+    });
+
+    updateTotal(); // Initial update
+});
+
+    // Watchlist functionality
+    document.querySelectorAll('.watch-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('active');
+        btn.innerHTML = btn.classList.contains('active') 
+          ? '<i class="fas fa-heart"></i>' 
+          : '<i class="far fa-heart"></i>';
+        
+        const item = btn.closest('.card').querySelector('h3').textContent;
+        const action = btn.classList.contains('active') ? 'added to' : 'removed from';
+        
+        // Show notification
+        const notification = document.createElement('div');
+        notification.style.position = 'fixed';
+        notification.style.bottom = '20px';
+        notification.style.right = '20px';
+        notification.style.backgroundColor = 'white';
+        notification.style.padding = '1rem 1.5rem';
+        notification.style.borderRadius = '0.5rem';
+        notification.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+        notification.style.zIndex = '1000';
+        notification.style.transform = 'translateY(20px)';
+        notification.style.opacity = '0';
+        notification.style.transition = 'all 0.3s ease';
+        notification.innerHTML = `<span style="color: var(--gray-800);">${item} ${action} your watchlist</span>`;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+          notification.style.transform = 'translateY(0)';
+          notification.style.opacity = '1';
+        }, 100);
+        
+        setTimeout(() => {
+          notification.style.transform = 'translateY(20px)';
+          notification.style.opacity = '0';
+          setTimeout(() => {
+            notification.remove();
+          }, 300);
+        }, 3000);
+      });
+    });
+  </script>
+</body>
+</html>
